@@ -73,7 +73,7 @@ $ cast call 0xC55708C5067883bE5029a567e16C880ebC15D21c "returnedNumber(uint256)(
 To speed testing, the game can be run via python3 and foundry's cast:
 
 ```bash
-$ chmod u+x vrfgame
+$ chmod u+x vrf-game
 
 $ ./vrf-game 
 usage: vrf-game [-h] [-d] [-l] [user] [guess]
