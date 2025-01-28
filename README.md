@@ -1,6 +1,9 @@
 # dubbler
 
-Double your tokens today! (If you prefer a slower game, check out the [avacloud-vrf-demo](avacloud-vrf-demo/README.md))
+<img src="logo.png" alt="dubbler logo" width="200" height="200">
+
+Double your tokens today!
+<br>(If you prefer a slower game, check out the [avacloud-vrf-demo](avacloud-vrf-demo/README.md))
 
 ## Setup
 
