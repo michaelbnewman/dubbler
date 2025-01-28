@@ -2,7 +2,7 @@
 
 This follows the [avacloud-vrf-quickstart-guide](https://support.avacloud.io/avacloud-vrf-quickstart-guide) demo and adds a Python command line script to play the game.
 
-## Setup and Manual Running of Game
+## Setup
 
 ```bash
 # Make a wallet (make sure to fund it)
@@ -44,7 +44,11 @@ Deployed to: 0xC55708C5067883bE5029a567e16C880ebC15D21c
 Transaction hash: 0xf2cbbb6109615a47e7b1f02067450af36c0c6af1896ff627da410f7a68b35fda
 
 # Add the contract address to the Consumer Allowlist in the AvaCloud Portal VRF module
+```
 
+## Manual Running of Game
+
+```bash
 # Test the contract.
 $ cast send --account dubbler-deploy 0xC55708C5067883bE5029a567e16C880ebC15D21c "guessRandomNumber(uint256)" 5
 transactionHash      0x03b6e99555d531f25567d5e2fbfded01f08ec5d4d441929420c08dc29c2860f9

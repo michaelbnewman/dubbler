@@ -2,7 +2,7 @@
 
 Double your tokens today! (If you prefer a slower game, check out the [avacloud-vrf-demo](avacloud-vrf-demo/README.md))
 
-## Setup and Manual Running of Game
+## Setup
 
 ```bash
 # Make a wallet (make sure to fund it)
@@ -40,7 +40,11 @@ Deployed to: ???
 Transaction hash: ???
 
 # Add the contract address to the Consumer Allowlist in the AvaCloud Portal VRF module
+```
 
+## Manual Running of Game
+
+```bash
 # Test the contract.
 $ cast send --account dubbler-deploy ??? "guessRandomNumber(uint256)" 5
 transactionHash      ???
