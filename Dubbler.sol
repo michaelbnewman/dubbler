@@ -5,7 +5,7 @@ pragma solidity 0.8.25;
 import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
 import {IVRFProxy} from "@vrf/interfaces/IVRFProxy.sol";
 
-contract AvaCloudVRFConsumer is VRFConsumerBaseV2 {
+contract Dubbler is VRFConsumerBaseV2 {
     struct RandomNumberGuess {
         address requestor;
         uint256 guess;
@@ -87,10 +87,10 @@ contract AvaCloudVRFConsumer is VRFConsumerBaseV2 {
         if (guess.isResolved) revert RequestAlreadyResolved();
         guess.isResolved = true;
 
-        // Set the range of responses to be 1 - 10
-        uint256 result = (_randomWords[0] % 10) + 1;
+        uint256 result = _randomWords[0];
         returnedNumber[_requestId] = result;
-        if (result == guess.guess) {
+        // guess = 0 (even), guess = 1 (odd)
+        if (result % 2 == guess.guess) {
             rewards[guess.requestor] += REWARD_AMOUNT;
         }
     }
