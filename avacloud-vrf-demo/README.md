@@ -44,6 +44,10 @@ Deployed to: 0xC55708C5067883bE5029a567e16C880ebC15D21c
 Transaction hash: 0xf2cbbb6109615a47e7b1f02067450af36c0c6af1896ff627da410f7a68b35fda
 
 # Add the contract address to the Consumer Allowlist in the AvaCloud Portal VRF module
+
+# Fund the prize pool
+$ cast send --account dubbler-deploy --value 5ether 0xC55708C5067883bE5029a567e16C880ebC15D21c
+transactionHash      0x8bb83585c85277e28445854b39fede5adaaeae8c76beca83015c31f67fcab7d2
 ```
 
 ## Manual Running of Game
