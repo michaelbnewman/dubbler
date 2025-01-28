@@ -46,7 +46,7 @@ $ cast send --account dubbler-deploy --value 5ether 0xC55708C5067883bE5029a567e1
 transactionHash      0x8bb83585c85277e28445854b39fede5adaaeae8c76beca83015c31f67fcab7d2
 ```
 
-## Manual Running of Game
+## Run Game Manually
 
 ```bash
 # Test the contract.
