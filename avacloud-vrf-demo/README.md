@@ -19,7 +19,7 @@ $ forge install ava-labs/subnet-vrf
 $ forge install smartcontractkit/chainlink
 
 # Adds line to end of "[profile.default]" section in foundry.toml
-$ echo remappings = ["@chainlink/=lib/chainlink/", "@vrf/=lib/subnet-vrf/src"] >> foundry.toml
+$ echo 'remappings = ["@chainlink/=lib/chainlink/", "@vrf/=lib/subnet-vrf/src"]' >> foundry.toml
 
 $ rm src/Counter.sol 
 $ rm test/Counter.t.sol
