@@ -1,0 +1,3 @@
+[submodule "dubbler/lib/forge-std"]
+	path = dubbler/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
