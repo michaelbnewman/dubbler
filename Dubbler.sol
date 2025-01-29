@@ -9,6 +9,7 @@ contract Dubbler is VRFConsumerBaseV2 {
     struct RandomNumberGuess {
         address requestor;
         uint256 guess;
+        uint256 wager;
         bool isResolved;
     }
 
@@ -18,13 +19,12 @@ contract Dubbler is VRFConsumerBaseV2 {
     mapping(uint256 vrfRequestId => uint256 randomNum) public returnedNumber;
     mapping(address guesser => uint256 amountToClaim) public rewards;
 
-    uint256 public constant REWARD_AMOUNT = 0.05 ether;
-
     event Payout(address indexed guesser, uint256 reward);
     event Fund(address indexed funder, uint256 total);
     event RandomNumberGuessed(
         address indexed guesser,
         uint256 guess,
+        uint256 wager,
         uint256 indexed vrfRequestID
     );
     event RewardsClaimed(address owner, uint256 reward);
@@ -33,6 +33,7 @@ contract Dubbler is VRFConsumerBaseV2 {
     error InvalidRequestID();
     error RequestAlreadyResolved();
     error NoRewardsToClaim();
+    error InsufficientWager();
 
     constructor(address vrfProxyAddress) VRFConsumerBaseV2(vrfProxyAddress) {
         proxy = IVRFProxy(vrfProxyAddress);
@@ -59,7 +60,8 @@ contract Dubbler is VRFConsumerBaseV2 {
 
     function guessRandomNumber(
         uint256 guess
-    ) public returns (uint256 _requestId) {
+    ) public payable returns (uint256 _requestId) {
+        if (msg.value == 0) revert InsufficientWager();
         // blockDelay and callbackGasLimit are recommended values
         uint16 blockDelay = 1;
         uint32 callbackGasLimit = 200_000;
@@ -67,13 +69,13 @@ contract Dubbler is VRFConsumerBaseV2 {
 
         // get the current nonce and increment
         uint256 requestId = proxy.requestNonce() + 1;
-        guesses[requestId] = RandomNumberGuess(msg.sender, guess, false);
+        guesses[requestId] = RandomNumberGuess(msg.sender, guess, msg.value, false);
         proxy.requestRandomWords(
             blockDelay,
             callbackGasLimit,
             numberOfRandomValues
         );
-        emit RandomNumberGuessed(msg.sender, guess, requestId);
+        emit RandomNumberGuessed(msg.sender, guess, msg.value, requestId);
         return requestId;
     }
 
@@ -91,7 +93,10 @@ contract Dubbler is VRFConsumerBaseV2 {
         returnedNumber[_requestId] = result;
         // guess = 0 (even), guess = 1 (odd)
         if (result % 2 == guess.guess) {
-            rewards[guess.requestor] += REWARD_AMOUNT;
+            // Double the wager on success
+            rewards[guess.requestor] += guess.wager * 2;
+        } else {
+            // Deduct the wager on failure (no additional action needed as it's already sent to the contract)
         }
     }
 }

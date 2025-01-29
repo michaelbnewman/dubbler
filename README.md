@@ -39,14 +39,14 @@ $ export FOUNDRY_ETH_RPC_URL="https://testnet-dubbler-e8b7b.avax-test.network/ex
 $ forge create --account dubbler-deploy --broadcast src/Dubbler.sol:Dubbler --constructor-args 0xf8af2e5f1df3c4c3aa3cac700e681aeab03de27f
 [⠊] Compiling...
 Deployer: 0xD0b12b87E5BbeD53293A388054d9deb967578bb5
-Deployed to: 0x11bcA6e6F96Dbc47EdC05A7a2B903b4195e57993
-Transaction hash: 0xdaa03a175c93d138b8fba3e574a6976386fcc903862b4f84ed005bdcfdd98a05
+Deployed to: 0x039fcae98597a2c7FcDe2e6C144ee4da56199e1b
+Transaction hash: 0xb43f378624acfb73070f611b14c777456b0152d50d0c57b0e20c60500236ab62
 
 # Add the contract address to the Consumer Allowlist in the AvaCloud Portal VRF module
 
 # Fund the prize pool
-$ cast send --account dubbler-deploy --value 5ether 0x11bcA6e6F96Dbc47EdC05A7a2B903b4195e57993
-transactionHash      0x8bb83585c85277e28445854b39fede5adaaeae8c76beca83015c31f67fcab7d2
+$ cast send --account dubbler-deploy --value 5ether 0x039fcae98597a2c7FcDe2e6C144ee4da56199e1b
+transactionHash      0xd3cf016fe4d7888c46f71f7e89e47d7132e8578cb2a6b1d68f989290e62b4e86
 ```
 
 ## Run Game via Python Script
@@ -75,31 +75,31 @@ cast Version: 0.3.1-dev
 
 $ ./dubbler-cli -l
 Available Users (Balance):
-dubbler-deploy (49.973386 DBLR)
+dubbler-deploy (34.873536 DBLR)
 
 # Round 1: Lost.
-$ ./dubbler-cli dubbler-deploy even 1
-You guessed an even number
-The random number was odd: 46584947867933822618834575764056702768349783735124609682002457720751313505717
+$ ./dubbler-cli dubbler-deploy even 0.5
+You guessed an even number, with a wager of 0.5 DBLR
+The random number was odd: 86041476454922884097956512269555491006819873557406678784329003497700516367687
 Sorry, you lost.
-Your balance is 49.941386 DBLR
-The remaining prize pool is 5.000000 DBLR
+Your balance is 34.367144 DBLR
+The remaining prize pool is 5.500000 DBLR
 
 # Round 2: Lost again.
 $ ./dubbler-cli dubbler-deploy even 1
-You guessed an even number
-The random number was odd: 37838072612441908451319062785858980383081778870667557584347964653499282490463
+You guessed an even number, with a wager of 1 DBLR
+The random number was odd: 27862624210175735810232007312226201291874808441134173150735858489760872861281
 Sorry, you lost.
-Your balance is 49.935590 DBLR
-The remaining prize pool is 5.000000 DBLR
+Your balance is 33.360752 DBLR
+The remaining prize pool is 6.500000 DBLR
 
 # Round 3: Winner!
 % ./dubbler-cli dubbler-deploy even 1
-You guessed an even number
-The random number was even: 26119791287843050551658032016889719567863772909423512873216519675860897832202
+You guessed an even number, with a wager of 1 DBLR
+The random number was even: 49817747975513771598378313733968872853120641722507622463699641776943511470830
 Congratulations! You won!
 Claiming rewards...
-https://subnets-test.avax.network/dubbler/tx/0x889f93912087a210ea0d2dbdbf0c384f3b98f3c5e96917f02ad3c9b5a444d113?tab=internal_txs
-Your balance is 49.978917 DBLR
-The remaining prize pool is 4.950000 DBLR
+https://subnets-test.avax.network/dubbler/tx/0x19edb696710c30e18f16d9ca6c7513a2fc41fd2c34057e305cf20ac648645127?tab=internal_txs
+Your balance is 34.353480 DBLR
+The remaining prize pool is 5.500000 DBLR
 ```

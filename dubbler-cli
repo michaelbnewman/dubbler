@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from subprocess import run
 from time import sleep
 
-contract_address = "0x11bcA6e6F96Dbc47EdC05A7a2B903b4195e57993"
+contract_address = "0x039fcae98597a2c7FcDe2e6C144ee4da56199e1b"
 
 def claim_rewards(user):
     result = run(f'cast send --account {user} --password "" {contract_address} "claimRewards()"', shell=True, capture_output=True)
@@ -100,7 +100,6 @@ def get_request_id(logs_string):
     logs = json.loads(logs_string)
     for log in logs:
         if log["address"] == contract_address.lower():
-           assert log["topics"][0] == "0x1d9111435f4b854f073bc412802d9927efaba88c5d4f981bb66464a1ea11f045"
            request_id = int(log["topics"][-1], 16)
     return request_id
 
@@ -116,8 +115,8 @@ def get_returned_number(request_id):
         sleep(1)
     return returned_number
 
-def guess_number(user, wager):
-    result = run(f'cast send --account {user} --password "" {contract_address} "guessRandomNumber(uint256)" {wager}', shell=True, capture_output=True)
+def guess_number(user, guess, wager):
+    result = run(f'cast send --account {user} --password "" --value {wager} {contract_address} "guessRandomNumber(uint256)" {guess}', shell=True, capture_output=True)
     if result.returncode == 0:
         output = result.stdout.decode()
         lines = output.split("\n")
@@ -173,15 +172,15 @@ if __name__ == '__main__':
     else:
         guess = 1        
 
-    wager = float(args.wager)  # FIXME
+    wager = int(float(args.wager) * 10**18)  # convert ether to wei units
 
-    tx_hash = guess_number(user_selected, guess)
+    tx_hash = guess_number(user_selected, guess, wager)
     sleep(2)
     receipt = get_receipt(tx_hash)
     request_id = get_request_id(receipt["logs"])
     returned_number = get_returned_number(request_id)
 
-    print(f"You guessed an {args.guess} number")
+    print(f"You guessed an {args.guess} number, with a wager of {args.wager} DBLR")
 
     if returned_number % 2 == 0:
         returned_status = "even"
