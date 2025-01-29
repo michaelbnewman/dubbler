@@ -140,7 +140,8 @@ def print_users_and_balances():
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("user", help="Username of player.", default=None, nargs='?')
-    parser.add_argument("guess", help="Number guessed (1 to 10, inclusive)", default=None, nargs='?')
+    parser.add_argument("guess", help="'even' or 'odd'", default=None, nargs='?')
+    parser.add_argument("wager", help="Amount of tokens to wager (double or nothing!)", default=None, nargs='?')
     parser.add_argument("-d", "--debug", action="store_true", dest="debug", default=False, help="Activate debug mode")
     parser.add_argument("-l", "--list-users", action="store_true", dest="list_users", default=False, help="List users and balances")
 
@@ -155,7 +156,7 @@ if __name__ == '__main__':
         print_users_and_balances()
         exit(0)
 
-    if not args.user or not args.guess:
+    if not args.user or not args.guess or not args.wager:
         parser.print_help()
         exit(1)
 
@@ -166,16 +167,28 @@ if __name__ == '__main__':
         print_users_and_balances()
         exit(0)
 
-    guess = int(args.guess)
-    tx_hash = guess_number(user_selected, guess)
+    if args.guess == "even":
+        guess = 0
+    else:
+        guess = 1        
+
+    wager = float(args.wager)  # FIXME
+
+    tx_hash = guess_number(user_selected, guess, wager)  # FIXME
     sleep(2)
     receipt = get_receipt(tx_hash)
     request_id = get_request_id(receipt["logs"])
     returned_number = get_returned_number(request_id)
 
-    print(f"You guessed {guess}")
-    print(f"The random number was {returned_number}")
-    if guess == returned_number:
+    print(f"You guessed an {args.guess} number")
+
+    if returned_number % 2 == 0:
+        returned_status = "even"
+    else:
+        returned_status = "odd"
+    print(f"The random number was {returned_number} (returned_status)")
+
+    if args.guess == returned_status:
         print("Congratulations! You won!")
         print("Claiming rewards...")
         tx_hash = claim_rewards(user_selected)
