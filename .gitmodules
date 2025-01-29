@@ -4,3 +4,6 @@
 [submodule "dubbler/lib/subnet-vrf"]
 	path = dubbler/lib/subnet-vrf
 	url = https://github.com/ava-labs/subnet-vrf
+[submodule "dubbler/lib/chainlink"]
+	path = dubbler/lib/chainlink
+	url = https://github.com/smartcontractkit/chainlink
