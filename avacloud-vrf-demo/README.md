@@ -120,7 +120,7 @@ Your balance is 4.940376 DBLR
 The remaining prize pool is 4.750000 DBLR
 
 # Round 3: Winner!
-% ./vrf-game dubbler-deploy 5
+$ ./vrf-game dubbler-deploy 5
 You guessed 5
 The random number was 5
 Congratulations! You won!

@@ -94,7 +94,7 @@ Your balance is 33.360752 DBLR
 The remaining prize pool is 6.500000 DBLR
 
 # Round 3: Winner!
-% ./dubbler-cli dubbler-deploy even 1
+$ ./dubbler-cli dubbler-deploy even 1
 You guessed an even number, with a wager of 1 DBLR
 The random number was even: 49817747975513771598378313733968872853120641722507622463699641776943511470830
 Congratulations! You won!
