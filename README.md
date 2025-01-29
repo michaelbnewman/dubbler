@@ -49,32 +49,6 @@ $ cast send --account dubbler-deploy --value 5ether 0x11bcA6e6F96Dbc47EdC05A7a2B
 transactionHash      0x8bb83585c85277e28445854b39fede5adaaeae8c76beca83015c31f67fcab7d2
 ```
 
-## Run Game Manually
-
-```bash
-# Test the contract.
-$ cast send --account dubbler-deploy ??? "guessRandomNumber(uint256)" 5
-transactionHash      ???
-
-# Get the REQUEST_ID (last item in "topics" shows its 2)
-$ cast receipt 0x03b6e99555d531f25567d5e2fbfded01f08ec5d4d441929420c08dc29c2860f9 | grep "logs " | grep -ioE "[{][^}]+0xC55708C5067883bE5029a567e16C880ebC15D21c[^}]+[}]"
-??? output pending ???
-
-# Check the guess (this confirmed I guessed 5)
-$ % cast call 0xC55708C5067883bE5029a567e16C880ebC15D21c "guesses(uint256)(address,uint256,bool)" 2
-0xD0b12b87E5BbeD53293A388054d9deb967578bb5
-5
-true
-
-# Get the returned random number (in this case, REQUEST_ID 2 returns a random number of 2). I lost this round of the game.
-$ cast call 0xC55708C5067883bE5029a567e16C880ebC15D21c "returnedNumber(uint256)(uint256)" 2
-2
-
-# If you ask for a REQUEST_ID that doesn't exist yet, its value is zero
-$ cast call 0xC55708C5067883bE5029a567e16C880ebC15D21c "returnedNumber(uint256)(uint256)" 3
-0
-```
-
 ## Run Game via Python Script
 
 To speed up testing, the game can be run via python3 and foundry's cast:
