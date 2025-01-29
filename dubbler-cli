@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from subprocess import run
 from time import sleep
 
-contract_address = "0xC55708C5067883bE5029a567e16C880ebC15D21c"
+contract_address = "0x11bcA6e6F96Dbc47EdC05A7a2B903b4195e57993"
 
 def claim_rewards(user):
     result = run(f'cast send --account {user} --password "" {contract_address} "claimRewards()"', shell=True, capture_output=True)
@@ -109,7 +109,8 @@ def get_returned_number(request_id):
     for retry in range(30):
         result = run(f'cast call {contract_address} "returnedNumber(uint256)(uint256)" {request_id}', shell=True, capture_output=True)
         output = result.stdout.decode()
-        returned_number = int(output.rstrip())
+        output = output.rstrip().split(" ")[0]  # '108742179723635703389769528744020240656852610226086830121439635191136090668013 [1.087e77]'
+        returned_number = int(output)
         if returned_number > 0:
             break
         sleep(1)
@@ -174,7 +175,7 @@ if __name__ == '__main__':
 
     wager = float(args.wager)  # FIXME
 
-    tx_hash = guess_number(user_selected, guess, wager)  # FIXME
+    tx_hash = guess_number(user_selected, guess)
     sleep(2)
     receipt = get_receipt(tx_hash)
     request_id = get_request_id(receipt["logs"])
@@ -186,7 +187,7 @@ if __name__ == '__main__':
         returned_status = "even"
     else:
         returned_status = "odd"
-    print(f"The random number was {returned_number} (returned_status)")
+    print(f"The random number was {returned_status}: {returned_number}")
 
     if args.guess == returned_status:
         print("Congratulations! You won!")
