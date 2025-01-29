@@ -51,7 +51,7 @@ transactionHash      0x8bb83585c85277e28445854b39fede5adaaeae8c76beca83015c31f67
 
 ## Run Game via Python Script
 
-To speed up testing, the game can be run via python3 and foundry's cast:
+The game is run via a Python script (Requires Foundry's [cast](https://book.getfoundry.sh/reference/cast/cast)):
 
 ```bash
 $ chmod u+x dubbler-cli
