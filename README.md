@@ -75,7 +75,7 @@ cast Version: 0.3.1-dev
 
 $ ./dubbler-cli -l
 Available Users (Balance):
-dubbler-deploy (4.983204 DBLR)
+dubbler-deploy (49.973386 DBLR)
 
 # Round 1: Lost.
 $ ./dubbler-cli dubbler-deploy even 1
